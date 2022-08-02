@@ -1,0 +1,44 @@
+`timescale 1ps / 1ps
+
+module tb_rtl_task1();
+
+
+
+
+// Your testbench goes here.
+
+task1 dut(.*);
+
+logic CLOCK_50;
+logic [3:0] KEY;
+logic [9:0] SW;
+logic [6:0] HEX0;
+logic [6:0] HEX1;
+logic [6:0] HEX2;
+logic [6:0] HEX3;
+logic [6:0] HEX4;
+logic [6:0] HEX5;
+logic [9:0] LEDR;
+
+wire [0:255] memory;
+
+assign memory = dut.s.altsyncram_component.m_default.altsyncram_inst.mem_data; //wtf
+
+
+initial begin
+    CLOCK_50 = 0;
+    forever #5 CLOCK_50 = ~CLOCK_50;
+end
+
+initial begin
+
+KEY[3] = 1'b0;
+#10
+KEY[3] = 1'b1;
+
+#12745;
+
+end
+
+
+endmodule: tb_rtl_task1
